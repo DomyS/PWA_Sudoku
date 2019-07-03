@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#ffdf9e" />
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Sniglet&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+    <!--<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">-->
+    <link rel="manifest" href="/manifest.json">
+    
+</head>
+<body>
+<h1>Sudoku</h1>
+<div class="controls">
+  <button type="button" class='restart'>Restart Game</button>
+  <button type="button" class='check'>Check Progress</button>
+  <button type="button" class='solve'>Solve</button>
+</div>
+<div class="sudoku">
+  <div class="overlay"></div>
+  <table><tbody>
+    <tr>
+      <td></td>
+      <td class="shown">2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="shown">5</td>
+      <td class="shown">8</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody></table><!--
+  --><table><tbody>
+    <tr>
+      <td class="shown">6</td>
+      <td></td>
+      <td class="shown">8</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td class="shown">9</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td class="shown">4</td>
+      <td></td>
+    </tr>
+  </tbody></table><!--
+  --><table><tbody>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="shown">7</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody></table><!--
+  --><table><tbody>
+    <tr>
+      <td class="shown">3</td>
+      <td class="shown">7</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="shown">6</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td class="shown">8</td>
+    </tr>
+  </tbody></table><!--
+  --><table><tbody>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody></table><!--
+  --><table><tbody>
+    <tr>
+      <td class='shown'>5</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td class='shown'>4</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td class='shown'>1</td>
+      <td class='shown'>3</td>
+    </tr>
+  </tbody></table><!--
+  --><table><tbody>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td class='shown'>9</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody></table><!--
+  --><table><tbody>
+    <tr>
+      <td></td>
+      <td class='shown'>2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class='shown'>8</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class='shown'>3</td>
+      <td></td>
+      <td class='shown'>6</td>
+    </tr>
+  </tbody></table><!--
+  --><table><tbody>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td class='shown'>3</td>
+      <td class='shown'>6</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td class='shown'>9</td>
+      <td></td>
+    </tr>
+  </tbody></table>
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+    var firebaseConfig = {
+      // ...
+    };
+    /* -----Service worker----- */
+    if('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+            .then(reg => {
+                console.log('Registered', reg);
+            }).catch(err => {
+                console.log('Registration failed:', err)
+            });
+        });
+    }
+    /* ------Instalation button -------- */
+    let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent Chrome 67 and earlier from automatically showing the prompt
+  e.preventDefault();
+  // Stash the event so it can be triggered later.
+  deferredPrompt = e;
+  btnAdd.style.display = 'block';
+});
+btnAdd.addEventListener('click', (e) => {
+  // hide our user interface that shows our A2HS button
+  btnAdd.style.display = 'none';
+  // Show the prompt
+  deferredPrompt.prompt();
+  // Wait for the user to respond to the prompt
+  deferredPrompt.userChoice
+    .then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the A2HS prompt');
+      } else {
+        console.log('User dismissed the A2HS prompt');
+      }
+      deferredPrompt = null;
+    });
+});
+window.addEventListener('appinstalled', (evt) => {
+  console.log('a2hs installed');
+});
+
+firebase.initializeApp(firebaseConfig);
+
+</script>
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-firestore.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

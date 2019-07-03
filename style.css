@@ -1,0 +1,168 @@
+
+body {
+    background: linear-gradient(rgb(62, 186, 201), rgb(227, 198, 152), rgb(232, 190, 228));
+    height: 100vh;
+    font-family: 'Sniglet', cursive;
+  }
+  
+  h1 {
+    margin-top: 20px;
+    font-size: 50px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: 'Lobster', cursive;
+  }
+  
+  .controls {
+    margin: 10px auto;
+    text-align: center;
+  }
+  .controls button {
+    cursor: pointer;
+    border-radius: 3px;
+    border: none;
+    box-shadow: 1px 1px 0px #707070; 
+    font-size: 19px;
+    font-family: 'Sniglet', cursive;
+    margin: 5px 5px;
+    padding: 10px 10px;
+  }
+  .controls button:active {
+    color: black;
+  }
+  
+  .time-controls {
+    margin: 10px;
+  }
+  
+  .restart {
+    background:#9DD9D2;
+  }
+  
+  .check {
+    background:#F2C2C2;
+  }
+
+  .solve {
+    background: #ffdf9e;
+  }
+  
+  .sudoku {
+    display: block;
+    border: 3px solid black;
+    border-radius: 5px;
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin: 20px auto;
+    background: white;
+  }
+  .sudoku table {
+    display: inline-table;
+    border: none;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+    width: 133.3333333333px;
+    height: 133.3333333333px;
+  }
+  .sudoku td {
+    border: 2px solid black;
+    margin: auto;
+    padding: 0;
+    width: 44.4444444444px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  .correct {
+    background-color: green;
+  }
+  
+  .incorrect {
+    background-color: red;
+  }
+  
+  .shown {
+    font-weight: bold;
+  }
+  
+  input {
+    background: transparent;
+    font-size: 20px;
+    font-family: 'Sniglet', cursive;
+    border: none;
+    text-align: center;
+    width: 30px;
+    line-height: 20px;
+  }
+  
+  .overlay {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: grey;
+    z-index: 2;
+  }
+
+  @media screen and (max-width: 600px) {
+      body {
+         background: linear-gradient(rgb(62, 186, 201), rgb(227, 198, 152), rgb(232, 190, 228));
+      }
+      .sudoku {
+        display: block;
+        border: 2px solid black;
+        border-radius: 5px;
+        position: relative;
+        width: 300px;
+        height: 360px;
+        margin: 20px auto;
+        background: white;
+        margin-bottom: 25px;
+      }
+      .sudoku table {
+        display: inline-table;
+        border: none;
+        font-size: 15px;
+        margin: 0;
+        padding: 0;
+        border-collapse: collapse;
+        width: 100px;
+        height: 120px;
+      }
+      .controls button {
+    cursor: pointer;
+    border-radius: 3px;
+    border: none;
+    box-shadow: 1px 1px 0px #707070; 
+    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+    margin: 5px 5px;
+    padding: 10px 10px;
+  }
+  input {
+    background: transparent;
+    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+    border: none;
+    text-align: center;
+    width: 10px;
+    line-height: 20px;
+  }
+  h1 {
+    margin-top: 10px;
+    font-size: 29px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: 'Lobster', cursive;
+  }
+  }
+
+  @media all and (display-mode: standalone) {
+    body {
+      background-color: yellow;
+    }
+  }
+  
